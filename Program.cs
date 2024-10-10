@@ -30,6 +30,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();    //Used for managing user authentication.
 
 app.MapControllerRoute(
     name: "default",
