@@ -28,6 +28,25 @@ namespace AppointmentScheduling1.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Sigin Using the password
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                //If username or password does not match displaying generic error
+                ModelState.AddModelError("", "Invalid Login Attempt.");
+
+            }
+            return View(model);
+        }
+
         public async Task<IActionResult> Register()
         {
             //Validating if the Admin role is already present
@@ -55,15 +74,27 @@ namespace AppointmentScheduling1.Controllers
                     Email = model.Email,
                     Name = model.Name,
                 };
-                var result = await _userManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.roleName);
                     await _signInManager.SignInAsync(user, isPersistent: false);   //signing in the default user
                     return RedirectToAction("Index", "Home");
                 }
+                foreach (var error in result.Errors)
+                {
+                    //Adding errors to the models so that we can dispaly them
+                    ModelState.AddModelError("", error.Description);
+                }
             }
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
