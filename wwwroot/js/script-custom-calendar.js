@@ -23,7 +23,11 @@ function InitializeCalendar() {
         alert(e);
     }
 }
-
+//Showing Modal on click
 function onShowModal(obj, isEventDetails) {
     $("#appointmentInput").modal("show"); 
+}
+//Hiding Modal on clicking close
+function onCloseModal() {
+    $("#appointmentInput").modal("hide");
 }
