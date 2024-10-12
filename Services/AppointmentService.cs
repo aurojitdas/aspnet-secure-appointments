@@ -16,7 +16,7 @@ namespace DoctorAppointmentSchedulingApp.Services
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
             var startDate = DateTime.Parse(model.StartDate);
-            var endDate = DateTime.Parse(model.EndDate).AddMinutes(Convert.ToDouble(model.Duration));
+            var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
 
             if(model!=null && model.Id > 0)
             {
