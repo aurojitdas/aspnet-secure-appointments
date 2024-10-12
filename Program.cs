@@ -1,4 +1,5 @@
 using AppointmentScheduling1.Models;
+using DoctorAppointmentSchedulingApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlSer
 //adding services for IdentityManager of ASP.NET core and passing the dbContext
 //passing application user bcz we are not using the default DB table for IdentityUser
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+//Adding Service appointmentService.
+builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 
 
 var app = builder.Build();
