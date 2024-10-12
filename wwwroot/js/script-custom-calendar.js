@@ -14,10 +14,16 @@ function InitializeCalendar() {
             },
             selectable: true,
             editable: false,
-            initialView: 'dayGridMonth'
+            select: function (event) {  //Creating onclick event
+                onShowModal(event, null);   
+            }
         });
 
     } catch (e) {
         alert(e);
     }
+}
+
+function onShowModal(obj, isEventDetails) {
+    $("#appointmentInput").modal("show"); 
 }
