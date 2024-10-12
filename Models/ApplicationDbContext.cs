@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DoctorAppointmentSchedulingApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,6 @@ namespace AppointmentScheduling1.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
                         
-        
+        public DbSet<Appointment> Appointments { get; set; }
     }
 }

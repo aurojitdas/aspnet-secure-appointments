@@ -10,14 +10,14 @@ namespace DoctorAppointmentSchedulingApp.Controllers.API
     public class AppointmentApiController : Controller
     {
         private readonly IAppointmentService _appointmentService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-      
+        private readonly IHttpContextAccessor _httpContextAccessor;      
         private readonly string loginUserId;
         private readonly string role;
         public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor)
         {
             _appointmentService = appointmentService;
             _httpContextAccessor = httpContextAccessor;
+
             //For getting logged-in Userid and Roles 
             loginUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
