@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection")));
 
 //adding services for IdentityManager of ASP.NET core and passing the dbContext
@@ -36,8 +37,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization(); 
 app.UseAuthentication();    //Used for managing user authentication.
+app.UseAuthorization();
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
