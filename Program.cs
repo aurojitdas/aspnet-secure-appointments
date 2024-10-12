@@ -13,8 +13,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlSer
 //adding services for IdentityManager of ASP.NET core and passing the dbContext
 //passing application user bcz we are not using the default DB table for IdentityUser
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
 //Adding Service appointmentService.
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
+
+//Adding AddHttpContextAccessor service for getting userId and Role
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
@@ -32,7 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthorization(); 
 app.UseAuthentication();    //Used for managing user authentication.
 
 app.MapControllerRoute(
