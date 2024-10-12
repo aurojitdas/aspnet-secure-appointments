@@ -117,9 +117,8 @@ namespace AppointmentScheduling1.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IsDoctorApproved")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsDoctorApproved")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Patient")
                         .IsRequired()

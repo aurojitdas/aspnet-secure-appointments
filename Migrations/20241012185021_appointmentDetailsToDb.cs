@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AppointmentScheduling1.Migrations
 {
     /// <inheritdoc />
-    public partial class addingAppointmentTable : Migration
+    public partial class appointmentDetailsToDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace AppointmentScheduling1.Migrations
                     Duration = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Patient = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDoctorApproved = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDoctorApproved = table.Column<bool>(type: "bit", nullable: false),
                     AdminId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

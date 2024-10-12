@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentScheduling1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241012182919_addingAppointmentTable")]
-    partial class addingAppointmentTable
+    [Migration("20241012185021_appointmentDetailsToDb")]
+    partial class appointmentDetailsToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,9 +120,8 @@ namespace AppointmentScheduling1.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IsDoctorApproved")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsDoctorApproved")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Patient")
                         .IsRequired()
