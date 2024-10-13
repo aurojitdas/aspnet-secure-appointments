@@ -47,19 +47,23 @@ namespace DoctorAppointmentSchedulingApp.Services
         //Getting DoctorEvents
         public List<AppointmentViewModel> DoctorsEventById(string doctorId)
         {
-            return _DB.Appointments.Where(x=> x.DoctorId == doctorId).ToList().Select(c => new AppointmentViewModel()
+            doctorId = doctorId.Trim();
+            var appointmentQuery = _DB.Appointments.Where(x => x.DoctorId == doctorId);
+            var appointmentList = appointmentQuery.ToList();
+            List<AppointmentViewModel> listOfAppointment = appointmentList.Select(c => new AppointmentViewModel()
             {
                 Id = c.Id,
                 Description = c.Description,
-                StartDate= c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                EndDate= c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
                 IsDoctorApproved = c.IsDoctorApproved.ToString(),
                 Patient = c.Patient,
                 DoctorId = c.DoctorId,
-
             }).ToList();
+
+            return listOfAppointment;
         }
 
         //Getting the list of doctors from the UsersTable
@@ -94,7 +98,10 @@ namespace DoctorAppointmentSchedulingApp.Services
         //Getting PatientEvents
         public List<AppointmentViewModel> PatientsEventById(string patientId)
         {
-            return _DB.Appointments.Where(x => x.DoctorId == patientId).ToList().Select(c => new AppointmentViewModel()
+            patientId = patientId.Trim();
+            var appointmentQuery = _DB.Appointments.Where(x => x.Patient == patientId);
+            var appointmentList = appointmentQuery.ToList();
+            List<AppointmentViewModel> listOfAppointment = appointmentList.Select(c => new AppointmentViewModel()
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -105,8 +112,9 @@ namespace DoctorAppointmentSchedulingApp.Services
                 IsDoctorApproved = c.IsDoctorApproved.ToString(),
                 Patient = c.Patient,
                 DoctorId = c.DoctorId,
-
             }).ToList();
+
+            return listOfAppointment;
         }
     }
 }
