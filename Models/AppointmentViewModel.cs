@@ -8,8 +8,8 @@
         public required string StartDate { get; set; }
         public string? EndDate { get; set; }
         public int Duration { get; set; }
-        public required string DoctorId { get; set; }
-        public required string Patient { get; set; }
+        public  string DoctorId { get; set; }
+        public  string Patient { get; set; }
         public  string? IsDoctorApproved { get; set; }
         public  string? AdminId { get; set; }
         public  string? DoctorName { get; set; }
