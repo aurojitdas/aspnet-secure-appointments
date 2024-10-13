@@ -25,7 +25,39 @@ function InitializeCalendar() {
                 editable: false,
                 select: function (event) {  //Creating onclick event
                     onShowModal(event, null);
+                },
+                eventDisplay: 'block',
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    console.log("Fetching events..."); // Add this line
+                    $.ajax({
+                        url: routeURL + '/api/Appointment/GetCalendarData?doctorId= '+$("#DoctorId").val(),
+                        type: 'GET',
+                        dataType: 'JSON',
+                        success: function (response) {
+                            var events = [];
+                            if (response.status === 1) {
+                                $.each(response.dataenum, function(i, data) {
+                                    events.push({
+                                        title:data.title,
+                                        description : data.description,
+                                        start: data.startDate.replace(" ", "T").replace(/\./g, ":"),
+                                        end: data.endDate.replace(" ", "T").replace(/\./g, ":"),
+                                        backgroundColor: data.isDoctorApproved === "True" ? "#28a745" : "#dc3545",
+                                        borderColor: "#162466",
+                                        textColor: "white",
+                                        id: data.id
+                                    });
+                                })
+                            }
+                            console.log(events); // Log each event to verify
+                            successCallback(events);
+                        },
+                        error: function (xhr) {
+                            $.notify("Error", "error");
+                        }
+                    });
                 }
+
             })
             calendar.render();
         }
