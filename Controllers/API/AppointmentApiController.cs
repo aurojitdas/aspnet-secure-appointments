@@ -1,4 +1,5 @@
-﻿using DoctorAppointmentSchedulingApp.Helper;
+﻿using AppointmentScheduling1.Helper;
+using DoctorAppointmentSchedulingApp.Helper;
 using DoctorAppointmentSchedulingApp.Models;
 using DoctorAppointmentSchedulingApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,39 @@ namespace DoctorAppointmentSchedulingApp.Controllers.API
                 commonResponse.Status = Utility.failure_code;
             }
 
+            return Ok(commonResponse);
+        }
+        [HttpGet]
+        [Route("GetCalendarData")]
+        public IActionResult GetCalendarData(string doctorId)
+        {
+            CommonResponse<List<AppointmentViewModel>> commonResponse = new CommonResponse<List<AppointmentViewModel>>();
+            try
+            {
+                //Retuning Appointment details for Patient
+                if (role == Roles.Patient)                     
+                {
+                    commonResponse.dataenum= _appointmentService.PatientsEventById(loginUserId);
+                    commonResponse.Status = Utility.success_code;
+                }
+                //Retuning Appointment details for Patient
+                else if (role == Roles.Doctor)                  
+                {
+                    commonResponse.dataenum = _appointmentService.DoctorsEventById(loginUserId);
+                    commonResponse.Status = Utility.success_code;
+                }
+                //Retuning Appointment details for Admin
+                else
+                {
+                    commonResponse.dataenum = _appointmentService.DoctorsEventById(doctorId);
+                    commonResponse.Status = Utility.success_code;
+                }                
+            }
+            catch (Exception e)
+            {
+                commonResponse.Message = e.Message;
+                commonResponse.Status = Utility.failure_code;
+            }
             return Ok(commonResponse);
         }
     }

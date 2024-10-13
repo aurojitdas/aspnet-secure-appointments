@@ -44,6 +44,23 @@ namespace DoctorAppointmentSchedulingApp.Services
 
             }
         }
+        //Getting DoctorEvents
+        public List<AppointmentViewModel> DoctorsEventById(string doctorId)
+        {
+            return _DB.Appointments.Where(x=> x.DoctorId == doctorId).ToList().Select(c => new AppointmentViewModel()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate= c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate= c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                IsDoctorApproved = c.IsDoctorApproved.ToString(),
+                Patient = c.Patient,
+                DoctorId = c.DoctorId,
+
+            }).ToList();
+        }
 
         //Getting the list of doctors from the UsersTable
         public List<DoctorViewModel> GetDoctorList()
@@ -72,6 +89,24 @@ namespace DoctorAppointmentSchedulingApp.Services
                            }
                           ).ToList();
             return patients;
+        }
+        
+        //Getting PatientEvents
+        public List<AppointmentViewModel> PatientsEventById(string patientId)
+        {
+            return _DB.Appointments.Where(x => x.DoctorId == patientId).ToList().Select(c => new AppointmentViewModel()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                IsDoctorApproved = c.IsDoctorApproved.ToString(),
+                Patient = c.Patient,
+                DoctorId = c.DoctorId,
+
+            }).ToList();
         }
     }
 }
