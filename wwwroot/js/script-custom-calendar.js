@@ -1,8 +1,10 @@
 ﻿var routeURL = location.protocol + "//" + location.host;                //This will retrieve the host and location.
 $(document).ready(function () {
+    kendo.culture("en-GB"); // Set the culture to British English for dd/MM/yyyy format
     $("#appointmentDate").kendoDateTimePicker({
+        format: "dd/MM/yyyy h:mm tt", // Set the desired format
         value: new Date(),
-        dateInput: false
+        dateInput: false       
     });
 
     InitializeCalendar();
@@ -104,4 +106,3 @@ function checkValidation() {
     return isValid;
 
 }
-
