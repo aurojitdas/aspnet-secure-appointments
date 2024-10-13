@@ -76,7 +76,7 @@ function onShowModal(obj, isEventDetails) {
         $("#description").val(obj.description);
         $("#appointmentDate").val(obj.startDate);
         $("#duration").val(obj.duration);
-        $("#DoctorId").val(obj.DoctorId);
+        $("#DoctorId").val(obj.doctorId);
         $("#patientId").val(obj.patient);
         $("#id").val(obj.id);
     } else {
@@ -92,15 +92,14 @@ function onCloseModal() {
     $("#title").val("");
     $("#description").val("");
     $("#appointmentDate").val("");
-    $("#duration").val("");   
-    $("#patientId").val("");
+    $("#duration").val("");
     $("#appointmentInput").modal("hide");
 }
 
 function onSubmitForm() {
     if (checkValidation()) {
-        //Getting all the appointment data from the form using ID for passing it to the controller
-       
+
+        //Getting all the appointment data from the form using ID for passing it to the controller       
         var requestData = {
             Id: parseInt($("#id").val()),
             Title: $("#title").val(),
@@ -124,6 +123,7 @@ function onSubmitForm() {
             data: JSON.stringify(requestData),
             contentType: 'application/json',
             success: function (response) {
+                console.log(JSON.stringify(requestData));
                 if (response.status === 1 || response.status === 2) {
                     calendar.refetchEvents();
                     $.notify(response.message, "success");
