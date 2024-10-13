@@ -66,6 +66,30 @@ namespace DoctorAppointmentSchedulingApp.Services
             return listOfAppointment;
         }
 
+        public AppointmentViewModel GetById(int id)
+        {            
+            var appointmentQuery = _DB.Appointments.Where(x => x.Id == id);
+            var appointmentList = appointmentQuery.ToList();
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            AppointmentViewModel listOfAppointment = appointmentList.Select(c => new AppointmentViewModel()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                IsDoctorApproved = c.IsDoctorApproved.ToString(),
+                Patient = c.Patient,
+                DoctorId = c.DoctorId,
+                PatientName = _DB.Users.Where(x=>x.Id==c.Patient).Select(x=>x.Name).FirstOrDefault(),
+                DoctorName = _DB.Users.Where(x => x.Id == c.DoctorId).Select(x => x.Name).FirstOrDefault(),
+            }).SingleOrDefault();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
+            return listOfAppointment;
+        }
+
         //Getting the list of doctors from the UsersTable
         public List<DoctorViewModel> GetDoctorList()
         {

@@ -85,5 +85,24 @@ namespace DoctorAppointmentSchedulingApp.Controllers.API
             }
             return Ok(commonResponse);
         }
+
+        [HttpGet]
+        [Route("GetCalendarDataById/{id}")]
+        public IActionResult GetCalendarDataById(int id)
+        {
+            CommonResponse<AppointmentViewModel> commonResponse = new CommonResponse<AppointmentViewModel>();
+            try
+            {
+                
+                    commonResponse.dataenum = _appointmentService.GetById(id);
+                    commonResponse.Status = Utility.success_code;
+            }
+            catch (Exception e)
+            {
+                commonResponse.Message = e.Message;
+                commonResponse.Status = Utility.failure_code;
+            }
+            return Ok(commonResponse);
+        }
     }
 }
