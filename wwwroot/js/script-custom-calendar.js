@@ -134,6 +134,7 @@ function onSubmitForm() {
                 }
             },
             error: function (xhr) {
+                console.log(JSON.stringify(requestData));
                 $.notify("Error", "error");
             }
         });
@@ -172,8 +173,8 @@ function getEventDetailsByEventId(info) {
             if (response.status === 1&&response.dataenum!==undefined) {
                 onShowModal(response.dataenum,true)
             }
-            console.log(events); // Log each event to verify
-            successCallback(events);
+            //console.log(events); // Log each event to verify
+            //successCallback(events);
         },
         error: function (xhr) {
             $.notify("Error", "error");
