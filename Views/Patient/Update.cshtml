@@ -1,0 +1,68 @@
+﻿@using DoctorAppointmentSchedulingApp.Models
+@model PatientViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<p> Name = @Model.Name</p>
+
+<form method="post" asp-action="Update">
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Add Item</h2>
+        </div>
+        <hr />
+        <!-- Name Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="Name"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="Name" class="form-control" />
+            </div>
+        </div>
+
+        <!-- Username Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="username"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="username" class="form-control" />
+            </div>
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="phoneNumber"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="phoneNumber" class="form-control" />
+            </div>
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="Address"></label>
+            <div class="col-md-10 mb-3"> 
+                <textarea asp-for="Address" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <!-- Medical ID Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="MedicalId"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="MedicalId"  class="form-control" />
+            </div>
+        </div>
+
+        <!-- Submit and Back Buttons -->
+        <div class="form-group row">
+            <div class="col-8 offset-2 row">
+                <div class="col">
+                    <input type="submit" class="btn btn-info w-75" value="Create" />
+                </div>
+                <div class="col">
+                    <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
