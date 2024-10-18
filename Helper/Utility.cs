@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Numerics;
 
 namespace DoctorAppointmentSchedulingApp.Helper
 {
@@ -16,7 +17,8 @@ namespace DoctorAppointmentSchedulingApp.Helper
 
         public static int success_code = 1;
         public static int failure_code = 0;
-
+        public static string Assigned = "True";
+        public static string NotAssigned = "False";
         public static List<SelectListItem> GetTimeDropDown()
         {
             int minute = 60;
@@ -29,6 +31,15 @@ namespace DoctorAppointmentSchedulingApp.Helper
                 minute = minute + 30;
             }
             return duration;
+        }
+
+        public static List<SelectListItem> getAssignmentStatusDropDown()
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem { Value = Assigned, Text = "Assigned" },
+                new SelectListItem { Value = NotAssigned, Text = "Not Assigned" }
+            };
         }
 
     }
