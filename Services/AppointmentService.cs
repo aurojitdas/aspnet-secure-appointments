@@ -150,6 +150,23 @@ namespace DoctorAppointmentSchedulingApp.Services
                           ).ToList();
             return patients;
         }
+        //Returns all the list of Doctors with their details
+        public List<DoctorViewModel> GetDoctorDetails()
+        {
+            var patients = (from user in _DB.Users
+                            join userRoles in _DB.UserRoles on user.Id equals userRoles.UserId
+                            join roles in _DB.Roles.Where(x => x.Name == Roles.Doctor) on userRoles.RoleId equals roles.Id
+                            select new DoctorViewModel  //Using Projections to get the   list of doctors
+                            {
+                                Id = user.Id,
+                                Name = user.Name,
+                                assignedTo = user.AssignedTo,
+                                assignmentStatus = user.assignMentStatus,
+                                userName = user.UserName,
+                            }
+                          ).ToList();
+            return patients;
+        }
 
         //Getting PatientEvents
         public List<AppointmentViewModel> PatientsEventById(string patientId)
