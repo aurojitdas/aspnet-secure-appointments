@@ -1,0 +1,56 @@
+﻿@using DoctorAppointmentSchedulingApp.Models
+@model DoctorViewModel
+@{
+    ViewData["Title"] = "Update Caregiver Details";
+}
+<form method="post" asp-action="Update">
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Update Caregiver Details</h2>
+        </div>
+        <hr />
+        <!-- Name Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="Name"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="Name" class="form-control" readonly/>
+            </div>
+        </div>
+
+        <!-- Username Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="userName"></label>
+            <div class="col-md-10 mb-3">
+                <input asp-for="userName" class="form-control" readonly/>
+            </div>
+        </div>
+
+        <!-- Assigned To Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="assignedTo"></label>
+            <div class="col-md-10 mb-3">
+                <select asp-for="assignedTo" asp-items="@(new SelectList(ViewBag.PatientList,"Name","Name"))" class="form-control"></select>
+              </div>
+        </div>
+
+        <!-- Assignment Status Field -->
+        <div class="form-group row">
+            <label class="col-md-2 mb-3" asp-for="assignmentStatus"></label>
+            <div class="col-md-10 mb-3">
+                <select asp-for="assignmentStatus" asp-items="@DoctorAppointmentSchedulingApp.Helper.Utility.getAssignmentStatusDropDown()" class="form-control"> </select>
+            </div>
+        </div>
+        <!-- Submit and Back Buttons -->
+        <div class="form-group row">
+            <div class="col-8 offset-2 row">
+                <div class="col">
+                    <input type="submit" class="btn btn-info w-75" value="Update" />
+                </div>
+                <div class="col">
+                    <a asp-action="DoctorDetails" class="btn btn-danger w-75">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

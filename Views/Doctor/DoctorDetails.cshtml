@@ -27,22 +27,37 @@
                         UserName
                     </th>
                     <th>
-                        Assignment Status
-                    </th>
-                    <th>
                         Assigned To
                     </th>
-                    
+                    <th>
+                        Assignment Status
+                    </th>    
+                     <th>
+                        Action
+                    </th> 
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td width="30%">@item.Name</td>
+                        <td width="10%">@item.Name</td>
                         <td width="30%">@item.userName</td>
-                        <td width="30%">@item.assignedTo</td>
-                        <td width="30%">@item.assignmentStatus</td>
+                        <td width="20%">@item.assignedTo</td>
+                        <td width="30%">
+                            @{
+                                string status = "Not Assigned";
+                                if (item.assignmentStatus=="True")
+                                {
+                                    status = "Assigned";
+                                }
+                                else
+                                {
+                                    status = "Not Assigned";
+                                }
+                            }
+                            @status
+                        </td>
                         <td width="10%">
                             <div class="width-100 btn-group" role="group">
                                 <a asp-controller="Doctor" asp-action="Update" asp-route-Id="@item.Id" class="btn btn-primary mx-1">Update</a>
