@@ -27,6 +27,8 @@ namespace DoctorAppointmentSchedulingApp.Controllers
 
         {
             var doctor = _DB.Users.Find(id);
+            ViewBag.DoctorList = _appointmentService.GetDoctorList();
+            ViewBag.PatientList = _appointmentService.GetPatientList();
 
             if (doctor == null)
             {
@@ -37,7 +39,18 @@ namespace DoctorAppointmentSchedulingApp.Controllers
                 var DoctorVM = new DoctorViewModel();
                 DoctorVM.Id = doctor.Id;
                 DoctorVM.userName = doctor.UserName;
-                DoctorVM.assignmentStatus = doctor.assignMentStatus;
+                
+                if (doctor.assignMentStatus == null)
+                {
+                    DoctorVM.assignmentStatus = "False";
+                }else if (doctor.assignMentStatus == true)
+                {
+                    DoctorVM.assignmentStatus = "True";
+                }else if (doctor.assignMentStatus == false)
+                {
+                    DoctorVM.assignmentStatus = "False";
+                }
+                DoctorVM.assignedTo = doctor.AssignedTo;
                 DoctorVM.Name = doctor.Name;
                 return View(DoctorVM);
             }
@@ -54,7 +67,16 @@ namespace DoctorAppointmentSchedulingApp.Controllers
                 doctor.Id = doctorVM.Id;
                 doctor.UserName = doctorVM.userName;
                 doctor.Name = doctorVM.Name;
-                doctor.assignMentStatus = doctorVM.assignmentStatus;
+                if (doctorVM.assignmentStatus == null)
+                {
+                    doctor.assignMentStatus = false;
+                }else if (doctorVM.assignmentStatus =="True")
+                {
+                    doctor.assignMentStatus = true;
+                }else if(doctorVM.assignmentStatus == "False")
+                {
+                    doctor.assignMentStatus = false;
+                }               
                 doctor.AssignedTo = doctorVM.assignedTo;
                 _DB.Users.Update(doctor);
                 _DB.SaveChanges();
