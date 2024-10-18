@@ -6,7 +6,7 @@
         public string Name { get; set; }
 
         public string assignedTo { get; set; }
-        public bool? assignmentStatus { get; set; }
+        public string? assignmentStatus { get; set; }
 
         public string userName { get; set; }
     }

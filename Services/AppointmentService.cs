@@ -161,7 +161,8 @@ namespace DoctorAppointmentSchedulingApp.Services
                                 Id = user.Id,
                                 Name = user.Name,
                                 assignedTo = user.AssignedTo,
-                                assignmentStatus = user.assignMentStatus,
+                                assignmentStatus = user.assignMentStatus.HasValue ?
+                                                   (user.assignMentStatus.Value ? "True" : "False") : "False",
                                 userName = user.UserName,
                             }
                           ).ToList();
