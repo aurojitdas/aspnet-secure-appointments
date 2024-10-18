@@ -6,10 +6,10 @@ namespace AppointmentScheduling1.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string MedicalId { get; set; }
-        public bool assignMentStatus { get; set; }
-        public string AssignedTo { get; set; }
+        public string? Address { get; set; }
+        public string? MedicalId { get; set; }
+        public bool? assignMentStatus { get; set; }
+        public string? AssignedTo { get; set; }
 
     }
 }
