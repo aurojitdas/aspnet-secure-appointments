@@ -20,7 +20,18 @@ namespace DoctorAppointmentSchedulingApp.Controllers
         {
 
             List<DoctorViewModel> doctorList = _appointmentService.GetDoctorDetails();
-            return View(doctorList);
+            
+            // Check if the user is authenticated
+            bool isLoggedin = User.Identity.IsAuthenticated;
+            if (isLoggedin)
+            {
+                // If the user is logged in, show the view
+                return View(doctorList);            }
+            else
+            {
+                // If the user is not logged in, redirect to the Login page
+                return RedirectToAction("Login", "Account");
+            }           
         }
 
         public IActionResult Update(String id)
