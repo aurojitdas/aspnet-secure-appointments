@@ -1,8 +1,146 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 50px;
+        }
+
+        .home-image {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+            .welcome-header h1 {
+                color: #333;
+                margin: 0;
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .welcome-header p {
+                color: #666;
+                font-size: 1.1rem;
+            }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #4A90E2;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+            .button:hover {
+                background-color: #357ABD;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Different colors for different buttons */
+            .button:nth-child(2) {
+                background-color: #4CAF50;
+            }
+
+                .button:nth-child(2):hover {
+                    background-color: #3d8b40;
+                }
+
+            .button:nth-child(3) {
+                background-color: #f39c12;
+            }
+
+                .button:nth-child(3):hover {
+                    background-color: #d68910;
+                }
+
+            .button:nth-child(4) {
+                background-color: #e74c3c;
+            }
+
+                .button:nth-child(4):hover {
+                    background-color: #c0392b;
+                }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <img src="~/images/1.jpg" alt="Appointment Scheduling" class="home-image">
+        <div class="buttons-container">
+            <div class="welcome-header">
+                <h1>Welcome</h1>
+                <p>Choose an option to get started</p>
+            </div>
+
+            <a asp-controller="Appointment" asp-action="Index" class="button">
+                View Appointments
+            </a>
+
+            <a asp-controller="Doctor" asp-action="DoctorDetails" class="button">
+                Caregiver Details
+            </a>
+
+            <a asp-controller="Patient" asp-action="PatientDetails" class="button">
+                Patient Details
+            </a>
+
+            <a href="#" class="button">
+                Contact Us
+            </a>
+        </div>
+    </div>
+</body>
+</html>
