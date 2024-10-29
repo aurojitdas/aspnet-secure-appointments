@@ -1,52 +1,126 @@
 ﻿@model LoginViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<h2>Sign In</h2>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
 
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 50px;
+        }
+
+        .login-image {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+            .login-header h1 {
+                color: #333;
+                margin: 0;
+                font-size: 2rem;
+            }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #555;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+                .form-group input:focus {
+                    outline: none;
+                    border-color: #4A90E2;
+                }
+
+        .login-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .login-button:hover {
+                background-color: #357ABD;
+            }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <img src="~/images/2.jpg" alt="Healthcare Illustration" class="login-image">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+            </div>
             <form id="account" method="post" asp-action="Login" asp-controller="Account">
-                <h4>Use your registered email id and password to login.</h4> 
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group row">
-                    <label class="col-md-2 mb-3" asp-for="Email"></label>
-                    <div class="col-md-10 mb-3">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-2 mb-3" asp-for="Password"></label>
-                    <div class="col-md-10 mb-3">
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
+                <div class="form-group">
+                    <label asp-for="Email">Username</label>
+                    <input type="text" id="username" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10 offset-md-2 checkbox">
-                        <label asp-for="RememberMe" class="pr-4 pl-0 mb-3">
-                        <input asp-for="RememberMe" />
-                        </label>
-                        Remember Me?
-                    </div>
+                    <label asp-for="Password">Password</label>
+                    <input type="password" id="password" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-10 offset-md-2">
-                        <input type="submit" value="Login" class="btn btn-success" />
-                    </div>
-                </div>
-                <p class="col-md-10 offset-md-2">
-                    <a asp-action="Register">Sign UP</a>
-                </p>
-
+                <button type="submit" class="login-button">Log In</button>
             </form>
-        </section>
+        </div>
     </div>
-
-</div>
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
+</body>
+</html>
