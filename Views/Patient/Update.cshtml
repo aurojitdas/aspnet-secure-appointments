@@ -1,65 +1,192 @@
 ﻿@using DoctorAppointmentSchedulingApp.Models
 @model PatientViewModel
 @{
-    ViewData["Title"] = "Update";
+    ViewData["Title"] = "Update Patient";
 }
-<form method="post" asp-action="Update">
-    <input asp-for="Id" hidden />
-    <div class="border p-3">
-        <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Update Patient Details</h2>
-        </div>
-        <hr />
-        <!-- Name Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="Name"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="Name" class="form-control" />
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        <!-- Username Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="username"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="username" class="form-control" />
-            </div>
-        </div>
+        /* Basic document styling */
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
 
-        <!-- Phone Number Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="phoneNumber"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="phoneNumber" class="form-control" />
-            </div>
-        </div>
+        /* Main background and font settings */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
 
-        <!-- Address Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="Address"></label>
-            <div class="col-md-10 mb-3"> 
-                <textarea asp-for="Address" class="form-control"></textarea>
-            </div>
-        </div>
+        /* Main content wrapper */
+        .main-content {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-        <!-- Medical ID Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="MedicalId"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="MedicalId"  class="form-control" />
-            </div>
-        </div>
+        /* White container for the form */
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-        <!-- Submit and Back Buttons -->
-        <div class="form-group row">
-            <div class="col-8 offset-2 row">
-                <div class="col">
-                    <input type="submit" class="btn btn-info w-75" value="Create" />
+        /* Page header styling */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+            .page-header h1 {
+                color: #333;
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+        /* Form group styling - wrapper for each form field */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Label styling */
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Input field styling */
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+            /* Input field focus state */
+            .form-control:focus {
+                outline: none;
+                border-color: #4A90E2;
+                box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+            }
+
+        /* Textarea specific styling */
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Button container styling */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Base button styling */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        /* Primary (Update) button styling */
+        .btn-primary {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: #357ABD;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+        /* Danger (Back) button styling */
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+            .btn-danger:hover {
+                background-color: #c0392b;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+</head>
+<body>
+    <!-- Main content wrapper -->
+    <div class="main-content">
+        <!-- White container for the form -->
+        <div class="form-container">
+            <!-- Page header -->
+            <div class="page-header">
+                <h1>Update Patient Details</h1>
+            </div>
+
+            <!-- Patient update form -->
+            <form method="post" asp-action="Update">
+                <!-- Hidden ID field -->
+                <input asp-for="Id" hidden />
+
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label class="form-label" asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" />
                 </div>
-                <div class="col">
-                    <a asp-action="PatientDetails" class="btn btn-danger w-75">Back</a>
+
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label class="form-label" asp-for="username">Username</label>
+                    <input asp-for="username" class="form-control" />
                 </div>
-            </div>
+
+                <!-- Phone Number Field -->
+                <div class="form-group">
+                    <label class="form-label" asp-for="phoneNumber">Phone Number</label>
+                    <input asp-for="phoneNumber" class="form-control" />
+                </div>
+
+                <!-- Address Field -->
+                <div class="form-group">
+                    <label class="form-label" asp-for="Address">Address</label>
+                    <textarea asp-for="Address" class="form-control"></textarea>
+                </div>
+
+                <!-- Medical ID Field -->
+                <div class="form-group">
+                    <label class="form-label" asp-for="MedicalId">Medical ID</label>
+                    <input asp-for="MedicalId" class="form-control" />
+                </div>
+
+                <!-- Submit and Back Buttons -->
+                <div class="button-group">
+                    <input type="submit" class="btn btn-primary" value="Update" />
+                    <a asp-action="PatientDetails" class="btn btn-danger">Back</a>
+                </div>
+            </form>
         </div>
     </div>
-</form>
+</body>
+</html>
