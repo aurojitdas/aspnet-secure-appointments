@@ -1,66 +1,184 @@
 ﻿@model RegisterViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<h2>Sign Up</h2>
-<form method="post" asp-action="Register" asp-controller="Account">
-    <h4>Create a New Account</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group row">
-        <label class="col-md-2 mb-3" asp-for="Name"></label>
-        <div class="col-md-10 mb-3">
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 50px;
+        }
+
+        .register-image {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+            .register-header h1 {
+                color: #333;
+                margin: 0;
+                font-size: 2rem;
+            }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #555;
+                font-weight: 500;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+                .form-group input:focus,
+                .form-group select:focus {
+                    outline: none;
+                    border-color: #4A90E2;
+                }
+
+        .text-danger {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+            .register-button:hover {
+                background-color: #357ABD;
+            }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+            .signin-link a {
+                color: #4A90E2;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+                .signin-link a:hover {
+                    text-decoration: underline;
+                }
+
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <img src="~/images/2.jpg" alt="Healthcare Illustration" class="register-image">
+        <div class="register-container">
+            <div class="register-header">
+                <h1>Create a New Account</h1>
+            </div>
+            <form method="post" asp-action="Register" asp-controller="Account">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" type="text">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" type="email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <input asp-for="Password" type="password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="roleName">Role</label>
+                    <select asp-for="roleName" asp-items="@AppointmentScheduling1.Helper.Roles.getRolesDropDown()">
+                    </select>
+                    <span asp-validation-for="roleName" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="register-button">Register</button>
+
+                <div class="signin-link">
+                    Already have an account? <a asp-action="Login">Sign In</a>
+                </div>
+            </form>
         </div>
     </div>
-
-    <div class="form-group row">
-        <label class="col-md-2 mb-3" asp-for="Email"></label>
-        <div class="col-md-10 mb-3">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-2 mb-3" asp-for="Password"></label>
-        <div class="col-md-10 mb-3">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-2 mb-3" asp-for="ConfirmPassword"></label>
-        <div class="col-md-10 mb-3">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-
-
-    <div class="form-group row">
-        <label class="col-md-2 mb-3" asp-for="roleName"></label>
-        <div class="col-md-10 mb-3">
-            <select asp-for="roleName" asp-items="@AppointmentScheduling1.Helper.Roles.getRolesDropDown()"class="form-control">
-
-            </select>
-            <span asp-validation-for="roleName" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10 offset-md-2 mb-3">
-            <input type="submit" value="Register" class="btn btn-success" />
-        </div>
-    </div>
-    <p class="col-md-10 offset-md-2 mb-3">
-        <a asp-action="Login">Sign IN</a>
-    </p>
-
-</form>
-
-
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+</body>
+</html>
