@@ -3,54 +3,182 @@
 @{
     ViewData["Title"] = "Update Caregiver Details";
 }
-<form method="post" asp-action="Update">
-    <input asp-for="Id" hidden />
-    <div class="border p-3">
-        <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Update Caregiver Details</h2>
-        </div>
-        <hr />
-        <!-- Name Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="Name"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="Name" class="form-control" readonly/>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        <!-- Username Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="userName"></label>
-            <div class="col-md-10 mb-3">
-                <input asp-for="userName" class="form-control" readonly/>
-            </div>
-        </div>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
 
-        <!-- Assigned To Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="assignedTo"></label>
-            <div class="col-md-10 mb-3">
-                <select asp-for="assignedTo" asp-items="@(new SelectList(ViewBag.PatientList,"Name","Name"))" class="form-control"></select>
-              </div>
-        </div>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
 
-        <!-- Assignment Status Field -->
-        <div class="form-group row">
-            <label class="col-md-2 mb-3" asp-for="assignmentStatus"></label>
-            <div class="col-md-10 mb-3">
-                <select asp-for="assignmentStatus" asp-items="@DoctorAppointmentSchedulingApp.Helper.Utility.getAssignmentStatusDropDown()" class="form-control"> </select>
-            </div>
-        </div>
-        <!-- Submit and Back Buttons -->
-        <div class="form-group row">
-            <div class="col-8 offset-2 row">
-                <div class="col">
-                    <input type="submit" class="btn btn-info w-75" value="Update" />
+        .main-content {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .content-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 1.5rem 0;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .form-control[readonly] {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #357ABD;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="content-container">
+            <form method="post" asp-action="Update">
+                <input asp-for="Id" hidden />
+
+                <div class="page-header">
+                    <h2>Update Caregiver Details</h2>
                 </div>
-                <div class="col">
-                    <a asp-action="DoctorDetails" class="btn btn-danger w-75">Back</a>
+
+                <hr class="form-divider" />
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" readonly />
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="userName">Username</label>
+                    <input asp-for="userName" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="assignedTo">Assigned To</label>
+                    <select asp-for="assignedTo"
+                            asp-items="@(new SelectList(ViewBag.PatientList,"Name","Name"))"
+                            class="form-control">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="assignmentStatus">Assignment Status</label>
+                    <select asp-for="assignmentStatus"
+                            asp-items="@DoctorAppointmentSchedulingApp.Helper.Utility.getAssignmentStatusDropDown()"
+                            class="form-control">
+                    </select>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="DoctorDetails" class="btn btn-danger">Back</a>
+                </div>
+            </form>
         </div>
     </div>
-</form>
+</body>
+</html>

@@ -1,79 +1,175 @@
-﻿
-@{
-    ViewData["Title"] = "DoctorDetails";
-}
-@using DoctorAppointmentSchedulingApp.Models
+﻿@using DoctorAppointmentSchedulingApp.Models
 @model List<DoctorViewModel>
-<!--Header Part-->
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">CareGiver List</h2>
-        </div>
+@{
+    ViewData["Title"] = "Doctor Details";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    </div>
-    </<br />
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
 
-    <!--Using Loops to populated data in a table-->
-    @if (Model.Count() > 0)
-    {
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        UserName
-                    </th>
-                    <th>
-                        Assigned To
-                    </th>
-                    <th>
-                        Assignment Status
-                    </th>    
-                     <th>
-                        Action
-                    </th> 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .content-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+            .page-header h1 {
+                color: #333;
+                font-size: 2rem;
+                margin: 0;
+            }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+        }
+
+            .btn-primary:hover {
+                background-color: #357ABD;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-assigned {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-not-assigned {
+            background-color: #ffeeed;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="content-container">
+            <div class="page-header">
+                <h1>CareGiver List</h1>
+            </div>
+            <div class="table-container">
+                @if (Model.Count() > 0)
                 {
-                    <tr>
-                        <td width="10%">@item.Name</td>
-                        <td width="30%">@item.userName</td>
-                        <td width="20%">@item.assignedTo</td>
-                        <td width="30%">
-                            @{
-                                string status = "Not Assigned";
-                                if (item.assignmentStatus=="True")
-                                {
-                                    status = "Assigned";
-                                }
-                                else
-                                {
-                                    status = "Not Assigned";
-                                }
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Assigned To</th>
+                                <th>Assignment Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.userName</td>
+                                    <td>@item.assignedTo</td>
+                                    <td>
+                                        @{
+                                            string status = item.assignmentStatus == "True" ? "Assigned" : "Not Assigned";
+                                            string statusClass = item.assignmentStatus == "True" ? "status-assigned" : "status-not-assigned";
+                                        }
+                                        <span class="status-badge @statusClass">@status</span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Doctor" asp-action="Update"
+                                           asp-route-Id="@item.Id" class="btn btn-primary">Update</a>
+                                    </td>
+                                </tr>
                             }
-                            @status
-                        </td>
-                        <td width="10%">
-                            <div class="width-100 btn-group" role="group">
-                                <a asp-controller="Doctor" asp-action="Update" asp-route-Id="@item.Id" class="btn btn-primary mx-1">Update</a>
-                            </div>
-                        </td>
-                    </tr>
+                        </tbody>
+                    </table>
                 }
-            </tbody>
-
-        </table>
-    }
-    else
-    {
-        <p>There is no data. Please add some</p>
-    }
-</div>
-
-
-
+                else
+                {
+                    <div class="empty-message">
+                        <p>There is no data. Please add some caregivers.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
