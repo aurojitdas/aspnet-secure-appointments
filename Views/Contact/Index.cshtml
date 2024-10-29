@@ -1,0 +1,213 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .contact-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 50px;
+        }
+
+        .contact-image {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+            .contact-header h1 {
+                color: #333;
+                margin: 0;
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .contact-header p {
+                color: #666;
+                font-size: 1.1rem;
+            }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+            .contact-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #4A90E2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+            .contact-icon i {
+                color: white;
+                font-size: 1.2rem;
+            }
+
+        .contact-text {
+            flex: 1;
+        }
+
+            .contact-text h3 {
+                color: #333;
+                margin-bottom: 0.25rem;
+                font-size: 1.1rem;
+            }
+
+            .contact-text p {
+                color: #666;
+                font-size: 1rem;
+                margin: 0;
+            }
+
+        .operating-hours {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+            margin-bottom: 2rem; /* Added margin to separate from back button */
+        }
+
+            .operating-hours h3 {
+                color: #333;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .operating-hours p {
+                color: #666;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #4A90E2;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+            .back-button:hover {
+                background-color: #357ABD;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+</head>
+<body>
+    <div class="contact-content">
+        <img src="~/images/1.jpg" alt="Contact Us" class="contact-image">
+        <div class="contact-info-container">
+            <div class="contact-header">
+                <h1>Contact Us</h1>
+                <p>We're here to help</p>
+            </div>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i>📞</i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Phone</h3>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i>✉️</i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>support@appointmentscheduling.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i>📍</i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Address</h3>
+                        <p>123 Healthcare Ave, Medical District</p>
+                        <p>New York, NY 10001</p>
+                    </div>
+                </div>
+            </div>
+            <div class="operating-hours">
+                <h3>Operating Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 2:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="back-button">
+                Back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>
