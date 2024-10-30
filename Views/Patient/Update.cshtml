@@ -154,12 +154,14 @@
                 <div class="form-group">
                     <label class="form-label" asp-for="Name">Name</label>
                     <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <!-- Username Field -->
                 <div class="form-group">
                     <label class="form-label" asp-for="username">Username</label>
                     <input asp-for="username" class="form-control" />
+                    <span asp-validation-for="username" class="text-danger"></span>
                 </div>
 
                 <!-- Phone Number Field -->
