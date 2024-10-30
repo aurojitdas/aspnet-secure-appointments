@@ -75,7 +75,8 @@ namespace DoctorAppointmentSchedulingApp.Controllers
             }
             else
             {
-                return NotFound();
+                // Return the view with the validation errors
+                return View(patientVM);
             }
         }
     }
