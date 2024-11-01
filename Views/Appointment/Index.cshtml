@@ -1,4 +1,7 @@
-﻿<div class="row">
+﻿@using Microsoft.AspNetCore.Identity 
+@inject UserManager<ApplicationUser> UserManager
+<div class="row">
+
     <div class="container">
         @if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin))
         {
@@ -8,6 +11,11 @@
                  ,@onchange = "onDoctorChange();" })
             </div>
         }
+        else if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
+        {
+            <input type="hidden" id="DoctorId" value=@UserManager.GetUserId(User) />
+        } 
+        
         <div id="calendar"> </div>
     </div>
 </div>
