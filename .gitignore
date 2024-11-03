@@ -2,3 +2,5 @@
 **/.vs/
 **/obj/
 /.vs
+/Properties/PublishProfiles/
+/Properties/ServiceDependencies/
