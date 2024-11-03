@@ -2,7 +2,7 @@
 $(document).ready(function () {
     kendo.culture("en-GB"); // Set the culture to British English for dd/MM/yyyy format
     $("#appointmentDate").kendoDateTimePicker({
-        format: "dd/MM/yyyy h:mm tt", // Set the desired format
+        format: "yyyy-MM-dd HH:mm:ss", // Set the desired format
         value: new Date(),
         dateInput: false       
     });
@@ -42,7 +42,7 @@ function InitializeCalendar() {
                                         description : data.description,
                                         start: data.startDate.replace(" ", "T").replace(/\./g, ":"),
                                         end: data.endDate.replace(" ", "T").replace(/\./g, ":"),
-                                        backgroundColor: data.isDoctorApproved === "True" ? "#28a745" : "#dc3545",
+                                        backgroundColor: "#28a745",
                                         borderColor: "#162466",
                                         textColor: "white",
                                         id: data.id
