@@ -15,6 +15,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlSer
 //passing application user bcz we are not using the default DB table for IdentityUser
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.Cookie.Name = ".AspNetCore.Identity.Application";
+    // Don't set SecurePolicy to Always yet since you're using HTTP
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+});
 //Adding Service appointmentService.
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 
