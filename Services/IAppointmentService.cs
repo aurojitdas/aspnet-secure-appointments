@@ -15,5 +15,7 @@ namespace DoctorAppointmentSchedulingApp.Services
         public List<PatientViewModel> GetPatientDetails();
 
         public List<DoctorViewModel> GetDoctorDetails();
+
+        public PatientViewModel GetPatientDetailsbyId(String id);
     }
 }

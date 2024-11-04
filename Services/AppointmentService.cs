@@ -1,6 +1,7 @@
 ﻿using AppointmentScheduling1.Helper;
 using AppointmentScheduling1.Models;
 using DoctorAppointmentSchedulingApp.Models;
+using System.Security.Cryptography.Xml;
 
 namespace DoctorAppointmentSchedulingApp.Services
 {
@@ -129,6 +130,22 @@ namespace DoctorAppointmentSchedulingApp.Services
                            }
                           ).ToList();
             return patients;
+        }
+
+        //Returns all the details of patients by id
+        public PatientViewModel GetPatientDetailsbyId(String id)
+        {      
+
+            var obj = _DB.Users.Find(id);
+
+            var patientDetails = new PatientViewModel();
+            patientDetails.Id = obj.Id;
+            patientDetails.Name = obj.Name;
+            patientDetails.Address = obj.Address;
+            patientDetails.MedicalId = obj.MedicalId;
+            patientDetails.username = obj.UserName;
+            patientDetails.phoneNumber = obj.PhoneNumber;
+            return patientDetails;
         }
         //Returns all the list of patients with their details
         public List<PatientViewModel> GetPatientDetails()

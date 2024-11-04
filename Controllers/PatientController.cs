@@ -1,16 +1,20 @@
 ﻿using AppointmentScheduling1.Models;
 using DoctorAppointmentSchedulingApp.Models;
 using DoctorAppointmentSchedulingApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DoctorAppointmentSchedulingApp.Controllers
 {
     public class PatientController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAppointmentService _appointmentService;
         private readonly ApplicationDbContext _DB;
-        public PatientController(IAppointmentService appointmentService, ApplicationDbContext db)
+        public PatientController(IAppointmentService appointmentService, ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _appointmentService = appointmentService;
             _DB = db;
         }
@@ -18,13 +22,26 @@ namespace DoctorAppointmentSchedulingApp.Controllers
         {
            
             List<PatientViewModel> patientList=_appointmentService.GetPatientDetails();
-           
+
             // Check if the user is authenticated
-            bool isLoggedin = User.Identity.IsAuthenticated;           
+            // If the user is logged in, show the view
+            bool isLoggedin = User.Identity.IsAuthenticated;             
             if (isLoggedin)
             {
-                // If the user is logged in, show the view
-                return View(patientList);
+                String userId = _userManager.GetUserId(User);
+                if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin)|| User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
+                {
+                    return View(patientList);
+                }
+                else if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Patient))
+                {
+                    //_appointmentService.GetPatientDetailsbyId(userId);
+                    PatientViewModel patientDetails = _appointmentService.GetPatientDetailsbyId(userId);
+                    List<PatientViewModel> pl = new List<PatientViewModel>();
+                    pl.Add(patientDetails);
+                    return View(pl);// allowing patients to get their details
+                }
+                return RedirectToAction("Login", "Account");
             }
             else
             {
