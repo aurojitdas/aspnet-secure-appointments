@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .content-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .unauthorized-icon {
+            font-size: 4rem;
+            color: #d32f2f;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+            .page-header h1 {
+                color: #333;
+                font-size: 2rem;
+                margin: 0;
+            }
+
+        .error-message {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+        }
+
+            .btn-primary:hover {
+                background-color: #357ABD;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="content-container">
+            <div class="unauthorized-icon">🔒</div>
+            <div class="page-header">
+                <h1>Unauthorized Access</h1>
+            </div>
+            <div class="error-message">
+                <p>You are not authorized to view this page.</p>
+                <p>Only caregivers have access to this section.</p>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>

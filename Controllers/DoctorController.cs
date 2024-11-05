@@ -1,6 +1,7 @@
 ﻿using AppointmentScheduling1.Models;
 using DoctorAppointmentSchedulingApp.Models;
 using DoctorAppointmentSchedulingApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointmentSchedulingApp.Controllers
@@ -9,9 +10,11 @@ namespace DoctorAppointmentSchedulingApp.Controllers
     {
         private readonly IAppointmentService _appointmentService;
         private readonly ApplicationDbContext _DB;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DoctorController(IAppointmentService appointmentService, ApplicationDbContext db)
+        public DoctorController(IAppointmentService appointmentService, ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _appointmentService = appointmentService;
             _DB = db;
         }       
@@ -25,8 +28,18 @@ namespace DoctorAppointmentSchedulingApp.Controllers
             bool isLoggedin = User.Identity.IsAuthenticated;
             if (isLoggedin)
             {
-                // If the user is logged in, show the view
-                return View(doctorList);            }
+                // If the user is doctor/admin logged in, show the view
+                if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin) || User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
+                {
+                    return View(doctorList);
+                }
+                else
+                {
+                    // If the user is patient logged in, show the view
+                    return RedirectToAction("notAllowed");
+
+                }
+                       }
             else
             {
                 // If the user is not logged in, redirect to the Login page
@@ -65,6 +78,11 @@ namespace DoctorAppointmentSchedulingApp.Controllers
                 DoctorVM.Name = doctor.Name;
                 return View(DoctorVM);
             }
+        }
+
+        public IActionResult notAllowed() {
+
+            return View();
         }
 
         [HttpPost]
