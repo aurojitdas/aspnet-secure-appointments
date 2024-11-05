@@ -19,7 +19,6 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
-
         /* Main Content Styles */
         .main-content {
             display: flex;
@@ -98,6 +97,30 @@
             .login-button:hover {
                 background-color: #357ABD;
             }
+        /* New styles for sign-up link */
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+            .signup-link p {
+                color: #666;
+                font-size: 0.9rem;
+            }
+
+            .signup-link a {
+                color: #4A90E2;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+                .signup-link a:hover {
+                    color: #357ABD;
+                    text-decoration: underline;
+                }
     </style>
 </head>
 <body>
@@ -121,6 +144,10 @@
                 </div>
                 <button type="submit" class="login-button">Log In</button>
             </form>
+            <!-- sign-up link section -->
+            <div class="signup-link">
+                <p>Don't have an account? <a asp-action="Register" asp-controller="Account">Sign up</a></p>
+            </div>
         </div>
     </div>
 </body>
