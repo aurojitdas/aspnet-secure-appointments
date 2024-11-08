@@ -17,5 +17,7 @@ namespace DoctorAppointmentSchedulingApp.Services
         public List<DoctorViewModel> GetDoctorDetails();
 
         public PatientViewModel GetPatientDetailsbyId(String id);
+
+        public Task<int> Delete(int id);
     }
 }

@@ -207,6 +207,18 @@ namespace DoctorAppointmentSchedulingApp.Services
 
             return listOfAppointment;
         }
-       
+
+        public async Task<int> Delete(int id)
+        {
+            var appointment = _DB.Appointments.FirstOrDefault(x => x.Id == id);
+            if (appointment != null)
+            {
+                _DB.Appointments.Remove(appointment);
+                return await _DB.SaveChangesAsync();
+            }
+            return 0;
+        }
+
     }
+
 }

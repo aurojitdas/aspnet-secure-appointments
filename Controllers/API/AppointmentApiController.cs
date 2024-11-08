@@ -104,5 +104,24 @@ namespace DoctorAppointmentSchedulingApp.Controllers.API
             }
             return Ok(commonResponse);
         }
+
+        [HttpGet]
+        [Route("DeleteAppoinment/{id}")]
+        public async Task<IActionResult> DeleteAppoinment(int id)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                commonResponse.Status = await _appointmentService.Delete(id);
+                commonResponse.Message = commonResponse.Status == 1 ? Utility.appointmentDeleted : Utility.somethingWentWrong;
+
+            }
+            catch (Exception e)
+            {
+                commonResponse.Message = e.Message;
+                commonResponse.Status = Utility.failure_code;
+            }
+            return Ok(commonResponse);
+        }
     }
 }
