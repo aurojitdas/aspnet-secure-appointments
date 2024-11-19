@@ -28,18 +28,9 @@ namespace DoctorAppointmentSchedulingApp.Controllers
             bool isLoggedin = User.Identity.IsAuthenticated;
             if (isLoggedin)
             {
-                // If the user is doctor/admin logged in, show the view
-                if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin) || User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
-                {
-                    return View(doctorList);
-                }
-                else
-                {
-                    // If the user is patient logged in, show the view
-                    return RedirectToAction("notAllowed");
+                return View(doctorList);
 
-                }
-                       }
+            }
             else
             {
                 // If the user is not logged in, redirect to the Login page

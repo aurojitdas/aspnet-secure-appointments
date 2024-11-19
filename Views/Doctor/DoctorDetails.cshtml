@@ -136,7 +136,10 @@
                                 <th>Username</th>
                                 <th>Assigned To</th>
                                 <th>Assignment Status</th>
-                                <th>Action</th>
+                                @if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin) || User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
+                                {
+                                    <th>Action</th>
+                                }                               
                             </tr>
                         </thead>
                         <tbody>
@@ -153,10 +156,15 @@
                                         }
                                         <span class="status-badge @statusClass">@status</span>
                                     </td>
-                                    <td>
-                                        <a asp-controller="Doctor" asp-action="Update"
-                                           asp-route-Id="@item.Id" class="btn btn-primary">Update</a>
-                                    </td>
+                                    
+                                        @if (User.IsInRole(AppointmentScheduling1.Helper.Roles.Admin) || User.IsInRole(AppointmentScheduling1.Helper.Roles.Doctor))
+                                        {
+                                        <td>
+                                            <a asp-controller="Doctor" asp-action="Update"
+                                               asp-route-Id="@item.Id" class="btn btn-primary">Update</a>
+                                        </td>
+                                        }                                 
+                                    
                                 </tr>
                             }
                         </tbody>

@@ -17,13 +17,17 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    // Specifying path to the login page for unauthorized users
     options.LoginPath = "/Account/Login";
     options.Cookie.Name = ".AspNetCore.Identity.Application";
-    // Don't set SecurePolicy to Always yet since you're using HTTP
+    // Making the cookie as HttpOnly, for making it inaccessible to client-side scripts
     options.Cookie.HttpOnly = true;
+    // Setting the cookie's expiration time span to 30 minutes
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    // Enabling sliding expiration, so the cookie's expiration time is reset with each user interaction
     options.SlidingExpiration = true;
 });
+
 //Adding Service appointmentService.
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 
