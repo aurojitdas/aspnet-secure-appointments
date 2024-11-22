@@ -1,11 +1,14 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> signInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
 
-@if (signInManager.IsSignedIn(User))
+    @if (signInManager.IsSignedIn(User))
 {
+    var user = await userManager.GetUserAsync(User); var fullName = user?.Name;
+ 
     <form method="post" id="logOutForm" asp-action="LogOut" asp-controller="Account">
         <ul class="nav navbar-nav">
-            <li>Hello, @User.Identity.Name!</li>
-            <li><a href="javascript:document.getElementById('logOutForm').submit()">Log Off</a></li>
+            <li>Hello, @fullName!</li>
+            <li style ="margin-left: 20px;"><a href="javascript:document.getElementById('logOutForm').submit()">Log Off</a></li>
         </ul>
     </form>
 }
