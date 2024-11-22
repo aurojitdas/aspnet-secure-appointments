@@ -38,7 +38,7 @@ namespace AppointmentScheduling1.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Appointment");
+                    return RedirectToAction("Index", "Home");
                 }
                 //If username or password does not match displaying generic error
                 ModelState.AddModelError("", "Invalid Login Attempt.");
